@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="rules">
+  <h2>Rules</h2>
+  <ul class="rules-list">
+    <li><strong>Setup:</strong> Shuffle, place pawns at Start, 32 teeth each, 0 candy.</li>
+    <li><strong>Turn order:</strong> Click the draw card button.</li>
+    <li><strong>Draw and move:</strong> Match card color .</li>
+    <li><strong>Special spaces:</strong> some spaces have consquences</li>
+    <li><strong>Special cards:</strong> With eating candy the cards are against you.</li>
+    <li><strong>Candy vs. teeth:</strong>  Brush Square revive 20 teeth.</li>
+    <li><strong>Winning:</strong> Land exactly on the Castle with at least 1 tooth the dentist will fix your teeth.</li>
+  </ul>
+  <form method="post" action="{{ url_for('start') }}">
+    <button class="btn primary" type="submit">Start game</button>
+  </form>
+</section>
+{% endblock %}
+
+<section class="rules">

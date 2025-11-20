@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hud">
+  <div class="players">
+    <div class="player">
+      
+
+      <h3>Player 1</h3>
+      <p><strong>Teeth:</strong> <span id="p1-teeth">{{ state.players[0].teeth }}</span></p>
+      <p><strong>Candy:</strong> <span id="p1-candy">{{ state.players[0].candy }}</span></p>
+    </div>
+    <div class="player">
+      <h3>Player 2</h3>
+      <p><strong>Teeth:</strong> <span id="p2-teeth">{{ state.players[1].teeth }}</span></p>
+      <p><strong>Candy:</strong> <span id="p2-candy">{{ state.players[1].candy }}</span></p>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button id="draw-btn" class="btn primary">Draw card</button>
+    <p class="turn"><strong>Turn:</strong> <span id="turn">Player {{ state.turn + 1 }}</span></p>
+  </div>
+</section>
+
+<section class="board">
+  <div class="tiles">
+    {% for tile in state.board %}
+      <div class="tile {{ tile.color }} {% if tile.special %}special {{ tile.special }}{% endif %}" data-idx="{{ tile.index }}">
+        <span class="index">{{ tile.index }}</span>
+        {% if tile.special %}
+          <span class="label">{{ tile.special|capitalize }}</span>
+        {% endif %}
+        {% if tile.index == state.players[0].pos %}
+          <div class="pawn-icon p1"></div>
+        {% endif %}
+        {% if tile.index == state.players[1].pos %}
+          <div class="pawn-icon p2"></div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="log">
+  <h3>Events</h3>
+  <ul id="log">
+    {% for entry in state.log %}
+      <li>{{ entry }}</li>
+    {% endfor %}
+  </ul>
+</section>
+
+<script>
+function refreshHUD(s) {
+  document.getElementById('p1-teeth').textContent = s.players[0].teeth;
+  document.getElementById('p1-candy').textContent = s.players[0].candy;
+  document.getElementById('p2-teeth').textContent = s.players[1].teeth;
+  document.getElementById('p2-candy').textContent = s.players[1].candy;
+  document.getElementById('turn').textContent = "Player " + (s.turn + 1);
+
+  const logEl = document.getElementById('log');
+  logEl.innerHTML = s.log.map(e => `<li>${e}</li>`).join('');
+
+  // re-render pawns
+  document.querySelectorAll('.tile .pawn-icon').forEach(el => el.remove());
+  s.players.forEach((p, idx) => {
+    const tile = document.querySelector(`.tile[data-idx='${p.pos}']`);
+    const pawn = document.createElement('div');
+    pawn.className = 'pawn-icon ' + (idx === 0 ? 'p1' : 'p2');
+    tile.appendChild(pawn);
+  });
+}
+
+document.getElementById('draw-btn').addEventListener('click', async () => {
+  const res = await fetch('/draw', { method: 'POST' });
+  const data = await res.json();
+  refreshHUD(data.state);
+});
+</script>
+{% endblock %}

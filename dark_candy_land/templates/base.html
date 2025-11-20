@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Dark Candy Land</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+  <header class="header">
+    <h1>Dark Candy Land</h1>
+    <p class="tagline">Sweetness beckons. Decay follows.</p>
+  </header>
+  <main class="content">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="footer">
+    <small>&copy; Dark Candy Land</small>
+  </footer>
+</body>
+</html>

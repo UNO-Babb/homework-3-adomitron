@@ -1,0 +1,166 @@
+:root {
+  --red: #e74c3c;
+  --blue: #3498db;
+  --green: #2ecc71;
+  --yellow: #f1c40f;
+  --purple: #9b59b6;
+  --text: #9de9aa;
+  --accent: #ff3e7f;
+}
+  
+  
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  
+  color: var(--text);
+
+
+  background-image: url("board.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #222;
+}
+.tagline { color: #bbb; margin-top: 4px; }
+
+.content { padding: 24px; }
+
+.footer {
+  padding: 16px 24px;
+  border-top: 1px solid #222;
+  color: #888;
+}
+
+.btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #333;
+  color: var(--text);
+}
+.btn.primary { background: var(--accent); color: white; }
+
+.rules .btn { margin-top: 12px; }
+
+.rules-list {
+  list-style: none;
+  padding-left: 0;
+}
+.rules-list li { margin-bottom: 8px; }
+
+.hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.players {
+  display: flex;
+  gap: 24px;
+}
+.player {
+  padding: 10px;
+  border: 1px solid #222;
+  border-radius: 8px;
+ 
+  width: 200px;
+}
+.pawn {
+  width: 48px; height: 48px; border-radius: 50%;
+  object-fit: cover; border: 2px solid #444; margin-bottom: 6px;
+}
+.actions { display: flex; align-items: center; gap: 16px; }
+
+.board {
+  position: relative;
+  margin: 16px 0 24px;
+}
+.tiles {
+  display: flex;
+  flex-wrap: wrap repeat(40, 64px);
+  
+  gap: 6px;
+  align-items: center;
+}
+.tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* optional spacing */
+}
+
+.tile {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #333;
+  /* remove: position: fixed */
+}
+
+
+.tile .index {
+  position: absolute; top: 4px; left: 6px; font-size: 10px; color: #aaa;
+}
+.tile .label {
+  position: absolute; bottom: 4px; left: 6px; font-size: 10px; color: #ddd;
+}
+
+/* Colors */
+.tile.red { background: var(--red); }
+.tile.blue { background: var(--blue); }
+.tile.green { background: var(--green); }
+.tile.yellow { background: var(--yellow); color: #222; }
+.tile.purple { background: var(--purple); }
+
+/* Specials */
+.tile.special.brush { outline: 2px groove #6ee7b7; }
+.tile.special.licorice { outline: 2px groove #111; box-shadow: inset 0 0 0 2px #000; }
+.tile.special.lollipop { outline: 2px groove #f87171; }
+.tile.special.gumdrop { outline: 2px groove #60a5fa; }
+.tile.special.cavity { outline: 2px groove #f59e0b; }
+.tile.special.castle { outline: 3px solid #fff; }
+
+/* Pawn overlay */
+.tile {
+  position: relative;
+}
+
+.pawn-icon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #050505;
+  transition: 0.25s ease;
+}
+
+/* Player 1 pawn */
+.pawn-icon.p1 {
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+}
+
+/* Player 2 pawn */
+.pawn-icon.p2 {
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+}
+
+.pawn-icon.p1 { background: linear-gradient(135deg, #ffd27d 40%, #f5f5f5 60%); }
+.pawn-icon.p2 { background: linear-gradient(135deg, #3a2a1a 40%, #8b5e34 60%); }
